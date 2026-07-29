@@ -1,113 +1,164 @@
-*{
+* {
 
-    margin:0;
+    margin: 0;
 
-    padding:0;
+    padding: 0;
 
-    box-sizing:border-box;
-
-}
-
-html{
-
-    font-size:16px;
+    box-sizing: border-box;
 
 }
 
-body{
 
-    font-family:"Inter",sans-serif;
+/* =========================
+   ROOT
+========================= */
 
-    background:var(--background);
 
-    color:var(--text);
+html,
+body,
+#app {
 
-    overflow:hidden;
+    width: 100%;
 
-}
-
-button{
-
-    border:none;
-
-    background:none;
-
-    cursor:pointer;
-
-    color:inherit;
-
-    font:inherit;
+    height: 100%;
 
 }
 
-a{
 
-    color:inherit;
+body {
 
-    text-decoration:none;
+    font-family: "Inter", sans-serif;
 
-}
+    background: var(--background);
 
-input{
+    color: var(--text);
 
-    font:inherit;
-
-}
-
-::-webkit-scrollbar{
-
-    width:8px;
+    overflow: hidden;
 
 }
 
-::-webkit-scrollbar-thumb{
 
-    background:#3b4252;
+/* =========================
+   GLOBAL ELEMENTS
+========================= */
 
-    border-radius:10px;
 
-}
+button {
 
-.app-container{
+    border: none;
 
-    display:flex;
+    background: none;
 
-    width:100vw;
+    cursor: pointer;
 
-    height:100vh;
+    font: inherit;
 
-}
-
-.main-content{
-
-    flex:1;
-
-    display:flex;
-
-    flex-direction:column;
+    color: inherit;
 
 }
 
-.content{
 
-    flex:1;
+a {
 
-    padding:35px;
+    color: inherit;
 
-    overflow:auto;
+    text-decoration: none;
 
 }
 
-.content-card{
 
-    background:var(--surface);
+input {
 
-    border:1px solid var(--border);
+    font: inherit;
 
-    border-radius:18px;
+}
 
-    padding:35px;
 
-    box-shadow:var(--shadow);
+/* =========================
+   MAIN APPLICATION LAYOUT
+========================= */
+
+
+#app {
+
+    width: 100vw;
+
+    height: 100vh;
+
+}
+
+
+.app-container {
+
+    display: flex !important;
+
+    flex-direction: row !important;
+
+    width: 100%;
+
+    height: 100%;
+
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+
+#sidebar {
+
+    width: 260px;
+
+    height: 100vh;
+
+    flex-shrink: 0;
+
+}
+
+
+/* =========================
+   MAIN CONTENT
+========================= */
+
+
+.main-content {
+
+    flex: 1;
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+
+/* =========================
+   CONTENT AREA
+========================= */
+
+
+.content {
+
+    flex: 1;
+
+    padding: 35px;
+
+    overflow: auto;
+
+}
+
+
+.content-card {
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+
+    border-radius: 18px;
+
+    padding: 35px;
 
 }

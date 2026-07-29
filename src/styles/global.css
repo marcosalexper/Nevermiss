@@ -1,34 +1,143 @@
 * {
 
     margin: 0;
+
     padding: 0;
+
     box-sizing: border-box;
+
+}
+
+
+html,
+body,
+#app {
+
+    width: 100%;
+
+    height: 100%;
 
 }
 
 
 body {
 
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Inter", sans-serif;
 
-    background: #f5f5f5;
+    background: var(--background);
 
-    color: #222;
+    color: var(--text);
+
+    overflow: hidden;
 
 }
 
 
-#app {
+/* =========================
+   APP STRUCTURE
+========================= */
 
-    width: 100vw;
-    height: 100vh;
+
+.app-container {
 
     display: flex;
 
-    justify-content: center;
+    flex-direction: row;
 
-    align-items: center;
+    width: 100vw;
+
+    height: 100vh;
+
+}
+
+
+/* =========================
+   SIDEBAR AREA
+========================= */
+
+
+#sidebar {
+
+    width: 260px;
+
+    height: 100vh;
+
+    flex-shrink: 0;
+
+}
+
+
+/* =========================
+   MAIN AREA
+========================= */
+
+
+.main-content {
+
+    flex: 1;
+
+    min-width: 0;
+
+    display: flex;
 
     flex-direction: column;
+
+}
+
+
+/* =========================
+   CONTENT
+========================= */
+
+
+.content {
+
+    flex: 1;
+
+    padding: 35px;
+
+    overflow: auto;
+
+}
+
+
+.content-card {
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+
+    border-radius: 18px;
+
+    padding: 35px;
+
+}
+
+
+/* =========================
+   ELEMENTS
+========================= */
+
+
+button {
+
+    border: none;
+
+    background: none;
+
+    cursor: pointer;
+
+    font: inherit;
+
+    color: inherit;
+
+}
+
+
+a {
+
+    text-decoration:none;
+
+    color:inherit;
 
 }
