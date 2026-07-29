@@ -1,0 +1,23 @@
+.header{
+
+    height:72px;
+
+    border-bottom:1px solid var(--border);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 30px;
+
+    background:var(--surface);
+
+}
+
+.header h2{
+
+    font-size:22px;
+
+}

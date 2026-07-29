@@ -6,18 +6,32 @@ async function loadComponent(path) {
 
 }
 
-async function start() {
+function loadCSS(path){
 
-    const app = document.getElementById("app");
+    const link=document.createElement("link");
 
-    const layout = await loadComponent("./layouts/main.html");
+    link.rel="stylesheet";
 
-    app.innerHTML = layout;
+    link.href=path;
 
-    document.getElementById("sidebar").innerHTML =
+    document.head.appendChild(link);
+
+}
+
+async function start(){
+
+    loadCSS("./components/sidebar/sidebar.css");
+
+    loadCSS("./components/header/header.css");
+
+    const app=document.getElementById("app");
+
+    app.innerHTML=await loadComponent("./layouts/main.html");
+
+    document.getElementById("sidebar").innerHTML=
         await loadComponent("./components/sidebar/sidebar.html");
 
-    document.getElementById("header").innerHTML =
+    document.getElementById("header").innerHTML=
         await loadComponent("./components/header/header.html");
 
 }

@@ -1,0 +1,63 @@
+.sidebar{
+
+    width:260px;
+
+    height:100vh;
+
+    background:var(--surface);
+
+    border-right:1px solid var(--border);
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.logo{
+
+    height:72px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:22px;
+
+    font-weight:700;
+
+    border-bottom:1px solid var(--border);
+
+}
+
+nav{
+
+    display:flex;
+
+    flex-direction:column;
+
+    padding:20px 10px;
+
+    gap:8px;
+
+}
+
+nav button{
+
+    padding:14px 16px;
+
+    border-radius:12px;
+
+    text-align:left;
+
+    transition:.25s;
+
+}
+
+nav button:hover{
+
+    background:var(--surface-hover);
+
+}
