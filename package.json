@@ -1,0 +1,12 @@
+{
+  "name": "mynevermiss",
+  "version": "1.0.0",
+  "description": "Personal organization desktop application",
+  "main": "electron/main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^43.2.0"
+  }
+}
