@@ -1,23 +1,69 @@
 .header{
 
-    height:72px;
+    height:var(--header-height);
 
-    border-bottom:1px solid var(--border);
+    background:var(--header-color);
+
+    border-bottom:1px solid var(--border-color);
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:0 35px;
+
+}
+
+.header-right{
 
     display:flex;
 
     align-items:center;
 
-    justify-content:space-between;
-
-    padding:0 30px;
-
-    background:var(--surface);
+    gap:12px;
 
 }
 
-.header h2{
+.header input{
 
-    font-size:22px;
+    width:250px;
+
+    background:var(--card-color);
+
+    border:none;
+
+    outline:none;
+
+    color:white;
+
+    padding:12px 15px;
+
+    border-radius:10px;
+
+}
+
+.header button{
+
+    width:42px;
+
+    height:42px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:var(--card-color);
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+.header button:hover{
+
+    transform:scale(1.05);
 
 }

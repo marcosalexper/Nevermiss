@@ -1,143 +1,77 @@
-* {
-
-    margin: 0;
-
-    padding: 0;
-
-    box-sizing: border-box;
-
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
-
 
 html,
-body,
-#app {
+body{
 
-    width: 100%;
+    width:100%;
 
-    height: 100%;
+    height:100%;
+
+    font-family:'Inter',sans-serif;
+
+    background:var(--bg-color);
+
+    color:var(--text-color);
+
+}
+
+#app{
+
+    width:100%;
+
+    height:100%;
+
+}
+
+.app-container{
+
+    display:flex;
+
+    width:100%;
+
+    height:100%;
+
+}
+
+.main-content{
+
+    flex:1;
+
+    display:flex;
+
+    flex-direction:column;
+
+    min-width:0;
+
+}
+
+.content{
+
+    flex:1;
+
+    padding:35px;
+
+    overflow:auto;
 
 }
 
 
-body {
+.content h2{
 
-    font-family: "Inter", sans-serif;
+    font-size:28px;
 
-    background: var(--background);
-
-    color: var(--text);
-
-    overflow: hidden;
+    margin-bottom:8px;
 
 }
 
+.content p{
 
-/* =========================
-   APP STRUCTURE
-========================= */
+    color:var(--text-secondary);
 
-
-.app-container {
-
-    display: flex;
-
-    flex-direction: row;
-
-    width: 100vw;
-
-    height: 100vh;
-
-}
-
-
-/* =========================
-   SIDEBAR AREA
-========================= */
-
-
-#sidebar {
-
-    width: 260px;
-
-    height: 100vh;
-
-    flex-shrink: 0;
-
-}
-
-
-/* =========================
-   MAIN AREA
-========================= */
-
-
-.main-content {
-
-    flex: 1;
-
-    min-width: 0;
-
-    display: flex;
-
-    flex-direction: column;
-
-}
-
-
-/* =========================
-   CONTENT
-========================= */
-
-
-.content {
-
-    flex: 1;
-
-    padding: 35px;
-
-    overflow: auto;
-
-}
-
-
-.content-card {
-
-    background: var(--surface);
-
-    border: 1px solid var(--border);
-
-    border-radius: 18px;
-
-    padding: 35px;
-
-}
-
-
-/* =========================
-   ELEMENTS
-========================= */
-
-
-button {
-
-    border: none;
-
-    background: none;
-
-    cursor: pointer;
-
-    font: inherit;
-
-    color: inherit;
-
-}
-
-
-a {
-
-    text-decoration:none;
-
-    color:inherit;
+    font-size:18px;
 
 }
