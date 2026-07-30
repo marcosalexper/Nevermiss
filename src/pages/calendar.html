@@ -1,105 +1,207 @@
 <div class="page">
 
+
     <!-- Page Title -->
 
     <div class="page-title">
 
+
         <div>
 
-            <h2>Calendar</h2>
+            <h2>
+                Calendar
+            </h2>
+
 
             <p>
                 Manage your events and reminders.
             </p>
 
+
         </div>
 
-        <button id="add-event-button" class="primary-button">
+
+
+        <button 
+            id="add-event-button"
+            class="primary-button"
+            type="button"
+        >
 
             <i data-lucide="plus"></i>
 
-            <span>Add Event</span>
+            <span>
+                Add Event
+            </span>
 
         </button>
+
 
     </div>
 
 
-    <!-- Calendar -->
+
+
+    <!-- Calendar Container -->
 
     <section class="calendar-container">
 
+
         <div class="calendar-header">
 
-            <button id="previous-month" type="button">
+
+            <button
+                id="previous-month"
+                type="button"
+            >
 
                 <i data-lucide="chevron-left"></i>
 
             </button>
 
-            <h3 id="calendar-month"></h3>
 
-            <button id="next-month" type="button">
+
+            <h3 id="calendar-month">
+                
+            </h3>
+
+
+
+            <button
+                id="next-month"
+                type="button"
+            >
 
                 <i data-lucide="chevron-right"></i>
 
             </button>
 
+
         </div>
 
+
+
+
+
+        <!-- Week Days -->
 
         <div class="weekdays">
 
-            <span>Mon</span>
-            <span>Tue</span>
-            <span>Wed</span>
-            <span>Thu</span>
-            <span>Fri</span>
-            <span>Sat</span>
-            <span>Sun</span>
+            <span>
+                Mon
+            </span>
+
+            <span>
+                Tue
+            </span>
+
+            <span>
+                Wed
+            </span>
+
+            <span>
+                Thu
+            </span>
+
+            <span>
+                Fri
+            </span>
+
+            <span>
+                Sat
+            </span>
+
+            <span>
+                Sun
+            </span>
 
         </div>
 
 
-        <div id="calendar-grid" class="calendar-grid">
 
-            <!-- Gerado pelo calendar.js -->
+
+
+        <!-- Calendar Days -->
+
+        <div 
+            id="calendar-grid"
+            class="calendar-grid"
+        >
+
+            <!-- Gerado automaticamente pelo calendar.js -->
 
         </div>
+
 
     </section>
+
+
+
 
 
     <!-- Upcoming Events -->
 
     <section class="card upcoming-events">
 
+
         <div class="section-header">
 
-            <h3>Upcoming Events</h3>
+
+            <h3>
+                Upcoming Events
+            </h3>
+
 
         </div>
+
+
+
 
         <div id="events-list">
 
-            <div class="event-item">
 
-                <strong>Dentist Appointment</strong>
-
-                <span>Tomorrow • 09:00</span>
-
-            </div>
 
             <div class="event-item">
 
-                <strong>Buy SSD</strong>
 
-                <span>Friday</span>
+                <strong>
+                    Dentist Appointment
+                </strong>
+
+
+                <span>
+                    Tomorrow • 09:00
+                </span>
+
 
             </div>
+
+
+
+
+            <div class="event-item">
+
+
+                <strong>
+                    Buy SSD
+                </strong>
+
+
+                <span>
+                    Friday
+                </span>
+
+
+            </div>
+
+
 
         </div>
 
+
+
     </section>
+
+
 
 </div>

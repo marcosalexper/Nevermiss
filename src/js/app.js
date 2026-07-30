@@ -1,14 +1,23 @@
+// ==================================
+// Carregador de componentes
+// ==================================
+
 async function loadComponent(path) {
 
 
-    const response = await fetch(path);
+    const response =
+        await fetch(path);
 
 
-    if (!response.ok) {
 
-        throw new Error(`Erro ao carregar: ${path}`);
+    if(!response.ok){
+
+        throw new Error(
+            `Erro ao carregar: ${path}`
+        );
 
     }
+
 
 
     return await response.text();
@@ -17,25 +26,67 @@ async function loadComponent(path) {
 
 
 
-async function loadLayout() {
 
 
-    const app = document.getElementById("app");
+// ==================================
+// Layout principal
+// ==================================
+
+async function loadLayout(){
 
 
-    app.innerHTML = await loadComponent(
-        "./layouts/main.html"
-    );
+    const app =
+        document.getElementById(
+            "app"
+        );
+
+
+    if(!app){
+
+        throw new Error(
+            "Elemento #app não encontrado"
+        );
+
+    }
+
+
+
+    app.innerHTML =
+        await loadComponent(
+            "./layouts/main.html"
+        );
 
 
 }
 
 
 
-async function loadSidebar() {
 
 
-    document.getElementById("sidebar").innerHTML =
+// ==================================
+// Sidebar
+// ==================================
+
+async function loadSidebar(){
+
+
+    const sidebar =
+        document.getElementById(
+            "sidebar"
+        );
+
+
+    if(!sidebar){
+
+        throw new Error(
+            "Sidebar não encontrada"
+        );
+
+    }
+
+
+
+    sidebar.innerHTML =
         await loadComponent(
             "./components/sidebar/sidebar.html"
         );
@@ -45,10 +96,32 @@ async function loadSidebar() {
 
 
 
-async function loadHeader() {
 
 
-    document.getElementById("header").innerHTML =
+// ==================================
+// Header
+// ==================================
+
+async function loadHeader(){
+
+
+    const header =
+        document.getElementById(
+            "header"
+        );
+
+
+    if(!header){
+
+        throw new Error(
+            "Header não encontrado"
+        );
+
+    }
+
+
+
+    header.innerHTML =
         await loadComponent(
             "./components/header/header.html"
         );
@@ -58,75 +131,165 @@ async function loadHeader() {
 
 
 
-async function initializeApp() {
 
 
-    try {
+// ==================================
+// Modal
+// ==================================
+
+async function loadModal(){
 
 
-        console.log("Iniciando Nevermiss");
+    const modalHTML =
+        await loadComponent(
+            "./components/modal/modal.html"
+        );
+
+
+
+    document.body.insertAdjacentHTML(
+        "beforeend",
+        modalHTML
+    );
+
+
+
+    console.log(
+        "Modal HTML carregado"
+    );
+
+
+
+    console.log(
+        "openModal disponível:",
+        typeof window.openModal
+    );
+
+
+}
+
+
+
+
+
+// ==================================
+// Eventos da Sidebar
+// ==================================
+
+function initializeNavigation(){
+
+
+    document.addEventListener(
+        "click",
+        (event)=>{
+
+
+            const link =
+                event.target.closest(
+                    "[data-page]"
+                );
+
+
+
+            if(!link){
+
+                return;
+
+            }
+
+
+
+            const page =
+                link.dataset.page;
+
+
+
+            navigate(page);
+
+
+
+        }
+    );
+
+
+}
+
+
+
+
+
+// ==================================
+// Inicialização da aplicação
+// ==================================
+
+async function initializeApp(){
+
+
+    try{
+
+
+        console.log(
+            "Iniciando Nevermiss"
+        );
 
 
 
         await loadLayout();
 
 
-        console.log("Layout carregado");
+
+        console.log(
+            "Layout carregado"
+        );
 
 
 
         await loadSidebar();
 
 
-        console.log("Sidebar carregada");
+
+        console.log(
+            "Sidebar carregada"
+        );
 
 
 
         await loadHeader();
 
 
-        console.log("Header carregado");
 
-
-
-        // Carrega página inicial
-
-        navigate("dashboard");
-
-
-
-        // Ativa navegação da sidebar
-
-        document.addEventListener(
-            "click",
-            (event)=>{
-
-
-                const link =
-                    event.target.closest("[data-page]");
-
-
-
-                if(!link)
-                    return;
-
-
-
-                const page =
-                    link.dataset.page;
-
-
-
-                navigate(page);
-
-
-
-            }
+        console.log(
+            "Header carregado"
         );
 
 
 
-        // Inicializa ícones
+        await loadModal();
+
+
+
+        console.log(
+            "Aplicando navegação"
+        );
+
+
+        initializeNavigation();
+
+
+
+
+        console.log(
+            "Abrindo Dashboard"
+        );
+
+
+        navigate(
+            "dashboard"
+        );
+
+
+
+
 
         if(window.lucide){
 
@@ -136,7 +299,8 @@ async function initializeApp() {
 
 
 
-    } catch(error) {
+
+    }catch(error){
 
 
         console.error(
@@ -149,6 +313,7 @@ async function initializeApp() {
 
 
 }
+
 
 
 
