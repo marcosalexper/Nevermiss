@@ -1,0 +1,278 @@
+/* ==========================================================
+   Calendar
+========================================================== */
+
+.page-title{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:32px;
+
+}
+
+
+.primary-button{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:12px 20px;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    transition:0.2s ease;
+
+}
+
+
+.primary-button:hover{
+
+    transform:translateY(-2px);
+
+}
+
+
+/* ==========================================================
+   Calendar Container
+========================================================== */
+
+.calendar-container{
+
+    padding:24px;
+
+    border-radius:16px;
+
+    margin-bottom:24px;
+
+}
+
+
+.calendar-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:24px;
+
+}
+
+
+.calendar-header h3{
+
+    font-size:22px;
+
+    font-weight:600;
+
+}
+
+
+.calendar-header button{
+
+    width:40px;
+
+    height:40px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:none;
+
+    cursor:pointer;
+
+    transition:0.2s ease;
+
+}
+
+
+.calendar-header button:hover{
+
+    transform:scale(1.08);
+
+}
+
+
+/* ==========================================================
+   Week Days
+========================================================== */
+
+.weekdays{
+
+    display:grid;
+
+    grid-template-columns:repeat(7,1fr);
+
+    gap:10px;
+
+    margin-bottom:12px;
+
+}
+
+
+.weekdays span{
+
+    text-align:center;
+
+    font-size:14px;
+
+    font-weight:600;
+
+}
+
+
+/* ==========================================================
+   Calendar Grid
+========================================================== */
+
+.calendar-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(7,1fr);
+
+    gap:10px;
+
+}
+
+
+/* ==========================================================
+   Calendar Cells
+========================================================== */
+
+.calendar-cell{
+
+    aspect-ratio:1;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-weight:500;
+
+    user-select:none;
+
+    transition:
+        transform .15s ease,
+        box-shadow .15s ease;
+
+}
+
+
+.calendar-cell:hover{
+
+    transform:translateY(-2px);
+
+}
+
+
+.calendar-cell.empty{
+
+    cursor:default;
+
+    pointer-events:none;
+
+}
+
+
+.calendar-cell.today{
+
+    font-weight:700;
+
+    outline:2px solid currentColor;
+
+}
+
+
+/* ==========================================================
+   Upcoming Events
+========================================================== */
+
+.upcoming-events{
+
+    padding:24px;
+
+    border-radius:16px;
+
+}
+
+
+.section-header{
+
+    margin-bottom:20px;
+
+}
+
+
+.section-header h3{
+
+    font-size:20px;
+
+    font-weight:600;
+
+}
+
+
+.event-item{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:4px;
+
+    padding:14px 0;
+
+}
+
+
+.event-item:not(:last-child){
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+}
+
+
+.event-item strong{
+
+    font-size:15px;
+
+}
+
+
+.event-item span{
+
+    font-size:13px;
+
+    opacity:.75;
+
+}
