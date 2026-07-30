@@ -1,5 +1,26 @@
 let currentDate = new Date();
 
+function previousMonth() {
+
+    currentDate.setMonth(
+        currentDate.getMonth() - 1
+    );
+
+    renderCalendar();
+
+}
+
+
+function nextMonth() {
+
+    currentDate.setMonth(
+        currentDate.getMonth() + 1
+    );
+
+    renderCalendar();
+
+}
+
 const months = [
     "January",
     "February",
@@ -68,6 +89,19 @@ function renderCalendar() {
 
         cell.dataset.day = day;
 
+        cell.addEventListener(
+    "click",
+    () => {
+
+        document
+            .querySelectorAll(".calendar-cell")
+            .forEach(c => c.classList.remove("selected"));
+
+        cell.classList.add("selected");
+
+    }
+);
+
         const today = new Date();
 
         if (
@@ -90,5 +124,23 @@ function renderCalendar() {
 window.initializeCalendar = function () {
 
     renderCalendar();
+
+    const previous =
+        document.getElementById("previous-month");
+
+    const next =
+        document.getElementById("next-month");
+
+    if(previous){
+
+        previous.onclick = previousMonth;
+
+    }
+
+    if(next){
+
+        next.onclick = nextMonth;
+
+    }
 
 };
