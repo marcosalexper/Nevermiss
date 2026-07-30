@@ -1,0 +1,81 @@
+.titlebar{
+
+    height:34px;
+
+    background:#171a22;
+
+    border-bottom:1px solid var(--border-color);
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    -webkit-app-region:drag;
+
+    user-select:none;
+
+}
+
+.drag-region{
+
+    flex:1;
+
+    padding-left:15px;
+
+    display:flex;
+
+    align-items:center;
+
+}
+
+.app-name{
+
+    font-size:14px;
+
+    font-weight:600;
+
+    color:white;
+
+}
+
+.window-controls{
+
+    display:flex;
+
+    -webkit-app-region:no-drag;
+
+}
+
+.window-controls button{
+
+    width:46px;
+
+    height:34px;
+
+    border:none;
+
+    background:transparent;
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    transition:.2s;
+
+}
+
+.window-controls button:hover{
+
+    background:#2b3243;
+
+}
+
+#close-btn:hover{
+
+    background:#e81123;
+
+}

@@ -1,14 +1,23 @@
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, Menu } = require("electron");
 const path = require("path");
-
 
 function createWindow() {
 
     const mainWindow = new BrowserWindow({
 
-        width: 1200,
+        width: 1280,
+        height: 720,
 
-        height: 800,
+        minWidth: 1100,
+        minHeight: 700,
+
+        center: true,
+
+        autoHideMenuBar: true,
+
+
+       
+        // icon: path.join(__dirname, "../assets/icon.ico"),
 
         webPreferences: {
 
@@ -22,6 +31,8 @@ function createWindow() {
 
     });
 
+    // Remove completamente a barra de menu
+    Menu.setApplicationMenu(null);
 
     mainWindow.loadFile(
         path.join(__dirname, "../src/index.html")
@@ -29,11 +40,9 @@ function createWindow() {
 
 }
 
-
 app.whenReady().then(() => {
 
     createWindow();
-
 
     app.on("activate", () => {
 
@@ -46,7 +55,6 @@ app.whenReady().then(() => {
     });
 
 });
-
 
 app.on("window-all-closed", () => {
 

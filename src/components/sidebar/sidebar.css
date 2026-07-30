@@ -1,6 +1,6 @@
 .sidebar{
 
-    width:var(--sidebar-width);
+    width:260px;;
 
     height:100%;
 
@@ -54,6 +54,12 @@ nav{
 
 nav a{
 
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
     color:var(--text-secondary);
 
     text-decoration:none;
@@ -62,11 +68,40 @@ nav a{
 
     border-radius:12px;
 
-    transition:.2s;
-
     cursor:pointer;
 
+    transition:var(--transition);
+
 }
+
+nav a svg{
+
+    width:20px;
+
+    height:20px;
+
+    stroke-width:2;
+
+}
+
+.settings{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+}
+
+.settings svg{
+
+    width:20px;
+
+    height:20px;
+
+}
+
 
 nav a:hover{
 
