@@ -19,12 +19,16 @@ const months = [
 
 const STORAGE_KEY = "nevermiss-events";
 
-function getEvents() {
 
-    const events =
-        localStorage.getItem(STORAGE_KEY);
+// ==============================
+// STORAGE
+// ==============================
 
-    return events
+function getEvents(){
+
+    const events = localStorage.getItem(STORAGE_KEY);
+
+    return events 
         ? JSON.parse(events)
         : [];
 
@@ -32,23 +36,24 @@ function getEvents() {
 
 
 
-function saveEvent(event) {
+function saveEvent(event){
 
-    const events =
-        getEvents();
+    const events = getEvents();
 
     events.push(event);
 
     localStorage.setItem(
-
         STORAGE_KEY,
-
         JSON.stringify(events)
-
     );
 
 }
 
+
+
+// ==============================
+// CALENDAR NAVIGATION
+// ==============================
 
 function previousMonth(){
 
@@ -72,13 +77,12 @@ function nextMonth(){
 
 }
 
-
-
-
 function renderCalendar(){
 
-    const grid =
-        document.getElementById("calendar-grid");
+
+    const grid = document.getElementById(
+        "calendar-grid"
+    );
 
 
     if(!grid){
@@ -91,19 +95,16 @@ function renderCalendar(){
     grid.innerHTML = "";
 
 
-    const year =
-        currentDate.getFullYear();
 
+    const year = currentDate.getFullYear();
 
-    const month =
-        currentDate.getMonth();
+    const month = currentDate.getMonth();
 
 
 
-    const title =
-        document.getElementById(
-            "calendar-month"
-        );
+    const title = document.getElementById(
+        "calendar-month"
+    );
 
 
     if(title){
@@ -115,19 +116,26 @@ function renderCalendar(){
 
 
 
-    const firstDay =
-        new Date(year, month, 1);
+    const firstDay = new Date(
+        year,
+        month,
+        1
+    );
+
+
+    const lastDay = new Date(
+        year,
+        month + 1,
+        0
+    );
 
 
 
-    const lastDay =
-        new Date(year, month + 1, 0);
+    let startDay = firstDay.getDay();
 
 
-
-    let startDay =
-        firstDay.getDay();
-
+    // Domingo vira 6
+    // Segunda vira 0
 
     startDay =
         startDay === 0
@@ -135,6 +143,8 @@ function renderCalendar(){
         : startDay - 1;
 
 
+
+    // espaços vazios antes do primeiro dia
 
     for(
         let i = 0;
@@ -176,23 +186,57 @@ function renderCalendar(){
             "calendar-cell";
 
 
-        cell.textContent =
-            day;
+
+        const dateString =
+            `${year}-${String(month + 1).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
 
 
+
+        cell.innerHTML = `
+
+            <span>
+                ${day}
+            </span>
+
+        `;
+
+
+
+        // indicador de evento
+
+        if(hasEventOnDate(dateString)){
+
+
+            const indicator =
+                document.createElement("div");
+
+
+            indicator.className =
+                "event-indicator";
+
+
+            cell.appendChild(indicator);
+
+        }
+
+
+
+
+        // seleção do dia
 
         cell.onclick = function(){
 
 
             document
             .querySelectorAll(".calendar-cell")
-            .forEach(item => {
+            .forEach(item=>{
 
                 item.classList.remove(
                     "selected"
                 );
 
             });
+
 
 
             cell.classList.add(
@@ -204,13 +248,15 @@ function renderCalendar(){
 
 
 
+
+        // dia atual
+
         const today =
             new Date();
 
 
 
         if(
-
             day === today.getDate()
             &&
             month === today.getMonth()
@@ -226,26 +272,60 @@ function renderCalendar(){
         }
 
 
+
         grid.appendChild(cell);
 
+
     }
+
 
 }
 
 
 
+// verifica eventos no dia
+
+function hasEventOnDate(date){
+
+
+    const events =
+        getEvents();
+
+
+
+    return events.some(event => 
+        event.date === date
+    );
+
+
+}
+
+
+
+// ==============================
+// INITIALIZE CALENDAR
+// ==============================
 
 
 window.initializeCalendar = function(){
 
 
-    console.log("Calendar inicializado");
+    console.log(
+        "Calendar inicializado"
+    );
+
 
 
     renderCalendar();
 
     renderUpcomingEvents();
 
+
+
+
+    // ==============================
+    // MONTH BUTTONS
+    // ==============================
 
 
     const previous =
@@ -269,6 +349,7 @@ window.initializeCalendar = function(){
     }
 
 
+
     if(next){
 
         next.onclick =
@@ -278,8 +359,9 @@ window.initializeCalendar = function(){
 
 
 
+
     // ==============================
-    // ADD EVENT
+    // ADD EVENT BUTTON
     // ==============================
 
 
@@ -289,6 +371,7 @@ window.initializeCalendar = function(){
         );
 
 
+
     console.log(
         "Botão Add Event:",
         addButton
@@ -296,15 +379,12 @@ window.initializeCalendar = function(){
 
 
 
+
     if(addButton){
 
 
+
         addButton.onclick = function(){
-
-
-            console.log(
-                "Clicou no Add Event"
-            );
 
 
 
@@ -313,9 +393,11 @@ window.initializeCalendar = function(){
             ){
 
 
+
                 window.openModal(
 
                     "New Event",
+
 
                     `
 
@@ -330,6 +412,7 @@ window.initializeCalendar = function(){
                     >
 
 
+
                     <label>
                         Date
                     </label>
@@ -339,6 +422,7 @@ window.initializeCalendar = function(){
                         id="event-date"
                         type="date"
                     >
+
 
 
                     <label>
@@ -351,20 +435,46 @@ window.initializeCalendar = function(){
                         type="time"
                     >
 
+
                     `
 
                 );
 
 
-            const saveButton =
-             document.getElementById(
-             "confirm-modal"
-        );
+
+
+                // espera o modal criar o botão
+
+                setTimeout(()=>{
+
+
+                    const saveButton =
+                        document.getElementById(
+                            "confirm-modal"
+                        );
 
 
 
-            saveButton.onclick =
-             handleSaveEvent;
+                    if(saveButton){
+
+
+                        saveButton.onclick =
+                            handleSaveEvent;
+
+
+                    }else{
+
+
+                        console.error(
+                            "Botão Confirm Modal não encontrado"
+                        );
+
+
+                    }
+
+
+                },100);
+
 
 
             }else{
@@ -381,6 +491,7 @@ window.initializeCalendar = function(){
         };
 
 
+
     }else{
 
 
@@ -392,157 +503,290 @@ window.initializeCalendar = function(){
     }
 
 
+
 };
 
-function handleSaveEvent() {
 
-    console.log("1 - handleSaveEvent iniciado");
+
+
+
+
+
+// ==============================
+// SAVE EVENT
+// ==============================
+
+
+function handleSaveEvent(){
+
+
 
     const title =
-        document.getElementById("event-title");
+        document.getElementById(
+            "event-title"
+        );
+
 
     const date =
-        document.getElementById("event-date");
+        document.getElementById(
+            "event-date"
+        );
+
 
     const time =
-        document.getElementById("event-time");
+        document.getElementById(
+            "event-time"
+        );
 
-    console.log("2 - Elementos encontrados:", {
-        title,
-        date,
-        time
-    });
 
-    console.log("3 - Valores:", {
-        title: title?.value,
-        date: date?.value,
-        time: time?.value
-    });
 
-    if (
 
-        !title.value.trim() ||
+    if(
+        !title ||
+        !date ||
+        !time
+    ){
 
-        !date.value ||
-
-        !time.value
-
-    ) {
-
-        console.log("4 - Validação falhou");
-
-        alert("Fill in all fields.");
+        console.error(
+            "Campos do evento não encontrados"
+        );
 
         return;
 
     }
 
-    console.log("5 - Validação OK");
+
+
+
+    if(
+
+        !title.value.trim()
+        ||
+        !date.value
+        ||
+        !time.value
+
+    ){
+
+
+        alert(
+            "Fill in all fields."
+        );
+
+
+        return;
+
+
+    }
+
+
+
 
     const event = {
 
-        id: Date.now(),
 
-        title: title.value.trim(),
+        id:
+            Date.now(),
 
-        date: date.value,
 
-        time: time.value
+        title:
+            title.value.trim(),
+
+
+        date:
+            date.value,
+
+
+        time:
+            time.value
+
 
     };
 
-    console.log("6 - Evento criado:", event);
+
+
 
     saveEvent(event);
 
-    console.log("7 - Evento salvo no localStorage");
+
 
     console.log(
-        "Conteúdo atual do localStorage:",
-        JSON.parse(localStorage.getItem(STORAGE_KEY))
+        "Evento salvo:",
+        event
     );
 
-    title.value = "";
-    date.value = "";
-    time.value = "";
+
+
+
+    renderCalendar();
 
     renderUpcomingEvents();
 
-    window.closeModal();
+
+
+
+    if(
+        typeof window.closeModal === "function"
+    ){
+
+        window.closeModal();
+
+    }
+
+
 
 }
 
-function renderUpcomingEvents() {
+
+
+
+
+
+
+
+// ==============================
+// UPCOMING EVENTS
+// ==============================
+
+
+function renderUpcomingEvents(){
+
+
 
     const eventsList =
-        document.getElementById("events-list");
+        document.getElementById(
+            "events-list"
+        );
 
-    if (!eventsList) {
+
+
+    if(!eventsList){
 
         return;
 
     }
 
-    const events =
+
+
+
+    let events =
         getEvents();
 
-    events.sort((a, b) => {
 
-        return new Date(`${a.date}T${a.time}`) -
-               new Date(`${b.date}T${b.time}`);
+
+
+    events.sort((a,b)=>{
+
+
+        return (
+
+            new Date(
+                `${a.date}T${a.time}`
+            )
+
+            -
+
+            new Date(
+                `${b.date}T${b.time}`
+            )
+
+        );
+
 
     });
 
+
+
+
+
     eventsList.innerHTML = "";
 
-    if (events.length === 0) {
+
+
+
+
+    if(events.length === 0){
+
+
 
         eventsList.innerHTML = `
 
+
             <div class="event-item">
+
 
                 <strong>
                     No upcoming events
                 </strong>
 
+
                 <span>
                     Create your first event.
                 </span>
 
+
             </div>
+
 
         `;
 
+
+
         return;
+
 
     }
 
-    events.forEach(event => {
+
+
+
+
+
+    events.forEach(event=>{
+
 
         const item =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
+
+
 
         item.className =
             "event-item";
 
+
+
+
+
         item.innerHTML = `
 
+
+
             <strong>
-
                 ${event.title}
-
             </strong>
 
+
             <span>
-
                 ${event.date} • ${event.time}
-
             </span>
+
+
 
         `;
 
-        eventsList.appendChild(item);
+
+
+
+        eventsList.appendChild(
+            item
+        );
+
+
 
     });
+
+
 
 }
