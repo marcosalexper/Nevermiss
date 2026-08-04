@@ -49,6 +49,55 @@ function saveEvent(event){
 
 }
 
+function updateEvent(updatedEvent){
+
+
+    const events = getEvents();
+
+
+    const index = events.findIndex(
+        event => event.id === updatedEvent.id
+    );
+
+
+    if(index !== -1){
+
+
+        events[index] = updatedEvent;
+
+
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(events)
+        );
+
+
+    }
+
+
+}
+
+function deleteEvent(id){
+
+
+    const events =
+        getEvents();
+
+
+
+    const filteredEvents =
+        events.filter(
+            event => event.id !== id
+        );
+
+
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(filteredEvents)
+    );
+
+}
 
 // ==============================
 // CALENDAR NAVIGATION
@@ -440,8 +489,7 @@ window.initializeCalendar = function(){
 
 
                     if(saveButton){
-
-
+                    
                         saveButton.onclick =
                             handleSaveEvent;
 
@@ -608,6 +656,250 @@ function handleSaveEvent(){
 
 }
 
+function openEditEvent(event){
+
+
+    if(
+        typeof window.openModal !== "function"
+    ){
+
+        console.error(
+            "openModal não existe"
+        );
+
+        return;
+
+    }
+
+
+
+    window.openModal(
+
+        "Edit Event",
+
+
+        `
+
+
+        <label>
+            Title
+        </label>
+
+
+        <input
+            id="event-title"
+            type="text"
+            value="${event.title}"
+        >
+
+
+
+        <label>
+            Date
+        </label>
+
+
+        <input
+            id="event-date"
+            type="date"
+            value="${event.date}"
+        >
+
+        <label>
+            Time
+        </label>
+
+
+        <input
+            id="event-time"
+            type="time"
+            value="${event.time}"
+        >
+
+        <br>
+
+
+     <button
+            id="delete-event-button"
+            class="delete-button"
+    >
+            Delete Event
+    </button>
+
+        `
+    );
+
+
+
+
+    setTimeout(()=>{
+
+
+        const saveButton =
+            document.getElementById(
+                "confirm-modal"
+            );
+
+
+
+        if(saveButton){
+
+
+            saveButton.onclick =
+                function(){
+
+
+                    updateEditedEvent(
+                        event.id
+                    );
+
+
+                };
+
+
+        }
+
+        const deleteButton =
+    document.getElementById(
+        "delete-event-button"
+    );
+
+
+
+if(deleteButton){
+
+
+    deleteButton.onclick =
+        function(){
+
+
+            const confirmDelete =
+                confirm(
+                    "Delete this event?"
+                );
+
+
+
+            if(confirmDelete){
+
+
+                deleteEvent(
+                    event.id
+                );
+
+
+
+                renderCalendar();
+
+                renderUpcomingEvents();
+
+
+
+                window.closeModal();
+
+
+            }
+
+
+        };
+
+
+}
+
+
+    },100);
+
+
+
+}
+
+function updateEditedEvent(id){
+
+
+    const title =
+        document.getElementById(
+            "event-title"
+        );
+
+
+    const date =
+        document.getElementById(
+            "event-date"
+        );
+
+
+    const time =
+        document.getElementById(
+            "event-time"
+        );
+
+
+
+    if(
+
+        !title.value.trim()
+        ||
+        !date.value
+        ||
+        !time.value
+
+    ){
+
+
+        alert(
+            "Fill in all fields."
+        );
+
+
+        return;
+
+
+    }
+
+
+
+
+
+    const updatedEvent = {
+
+
+        id:id,
+
+
+        title:
+            title.value.trim(),
+
+
+        date:
+            date.value,
+
+
+        time:
+            time.value
+
+
+    };
+
+
+
+
+    updateEvent(
+        updatedEvent
+    );
+
+
+
+    renderCalendar();
+
+    renderUpcomingEvents();
+
+
+
+    window.closeModal();
+
+
+}
+
 // ==============================
 // UPCOMING EVENTS
 // ==============================
@@ -724,9 +1016,17 @@ function renderUpcomingEvents(){
 
         `;
 
-        eventsList.appendChild(
-            item
-        );
+            item.onclick = function(){
+
+                openEditEvent(event);
+
+            };
+
+
+
+            eventsList.appendChild(
+                item
+            );
 
     });
 
