@@ -15,135 +15,159 @@ const routes = {
 };
 
 
+
 async function navigate(page) {
 
-    const container = document.getElementById("page-content");
+
+    const container =
+        document.getElementById(
+            "page-content"
+        );
+
 
 
     if (!container) {
 
-        console.error("page-content não encontrado");
+
+        console.error(
+            "page-content não encontrado"
+        );
+
 
         return;
 
     }
 
 
-    const file = routes[page];
+
+    const file =
+        routes[page];
+
 
 
     if (!file) {
 
+
         container.innerHTML =
         "<h2>Página não encontrada</h2>";
+
 
         return;
 
     }
+
 
 
     try {
 
 
-        const response = await fetch(file);
+        const response =
+            await fetch(file);
 
 
-        if (!response.ok) {
+
+        if(!response.ok){
+
 
             throw new Error(
                 `Erro ao carregar ${file}`
             );
 
+
         }
 
 
-        const html = await response.text();
 
 
-        container.innerHTML = html;
+        const html =
+            await response.text();
 
 
 
-        // Atualiza URL
+        container.innerHTML =
+            html;
+
+
+
 
         window.history.pushState(
+
             {page},
+
             "",
+
             `#${page}`
+
         );
 
 
 
-        // Recria ícones
+
 
         if(window.lucide){
 
+
             lucide.createIcons();
 
-        }
-
-
-
-        // Inicialização dos módulos
-
-
-        if (
-
-            page === "calendar" &&
-
-            typeof window.initializeCalendar === "function"
-
-        ) {
-
-            window.initializeCalendar();
 
         }
 
 
 
-        if (
 
-            page === "wishlist" &&
 
-            typeof window.initializeWishlist === "function"
 
-        ) {
+        // ==============================
+        // MODULE INITIALIZERS
+        // ==============================
 
-            window.initializeWishlist();
+
+
+        const modules = {
+
+
+            calendar:
+                window.initializeCalendar,
+
+
+            wishlist:
+                window.initializeWishlist,
+
+
+            documents:
+                window.initializeDocuments,
+
+
+            vault:
+                window.initializeVault
+
+
+        };
+
+
+
+
+
+        if(
+
+            modules[page] &&
+
+            typeof modules[page] === "function"
+
+        ){
+
+
+            modules[page]();
+
 
         }
 
 
 
-        if (
-
-            page === "documents" &&
-
-            typeof window.initializeDocuments === "function"
-
-        ) {
-
-            window.initializeDocuments();
-
-        }
 
 
+    }catch(error){
 
-        if (
-
-            page === "vault" &&
-
-            typeof window.initializeVault === "function"
-
-        ) {
-
-            window.initializeVault();
-
-        }
-
-
-
-    } catch(error) {
 
 
         console.error(
@@ -152,34 +176,53 @@ async function navigate(page) {
         );
 
 
+
         container.innerHTML = `
+
 
             <h2>
                 Erro ao carregar página
             </h2>
 
+
         `;
+
 
 
     }
 
+
+
 }
+
+
+
 
 
 
 // Navegação pelo botão voltar/avançar
 
 window.addEventListener(
+
     "popstate",
-    () => {
+
+    ()=>{
+
 
         const page =
-        location.hash.replace("#","")
-        ||
-        "dashboard";
+
+            location.hash.replace("#","")
+
+            ||
+
+            "dashboard";
+
 
 
         navigate(page);
 
+
+
     }
+
 );

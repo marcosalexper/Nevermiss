@@ -1,0 +1,129 @@
+/* ==============================
+   WISHLIST
+============================== */
+
+
+.wishlist-container {
+
+    width: 100%;
+
+    margin-top: 30px;
+
+}
+
+
+
+
+.wishlist-table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    border: 1px solid #444;
+
+    table-layout: fixed;
+
+}
+
+
+
+
+
+.wishlist-table thead {
+
+    background-color: #222;
+
+}
+
+
+
+
+
+.wishlist-table th {
+
+
+    padding: 15px;
+
+    text-align: left;
+
+    border: 1px solid #555;
+
+    font-weight: bold;
+
+
+}
+
+
+
+
+.wishlist-table td {
+
+
+    padding: 15px;
+
+    border: 1px solid #555;
+
+
+}
+
+
+
+
+.wishlist-table tr {
+
+
+    height: 55px;
+
+
+}
+
+
+
+
+
+/* tamanho das colunas */
+
+
+.wishlist-table th:nth-child(1),
+.wishlist-table td:nth-child(1) {
+
+
+    width: 45%;
+
+
+}
+
+
+
+.wishlist-table th:nth-child(2),
+.wishlist-table td:nth-child(2) {
+
+
+    width: 25%;
+
+
+}
+
+
+
+.wishlist-table th:nth-child(3),
+.wishlist-table td:nth-child(3) {
+
+
+    width: 30%;
+
+
+}
+
+
+
+
+
+.wishlist-table tbody tr:hover {
+
+
+    background-color: rgba(255,255,255,0.08);
+
+
+}
