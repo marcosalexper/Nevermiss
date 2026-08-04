@@ -17,6 +17,38 @@ const months = [
 ];
 
 
+const STORAGE_KEY = "nevermiss-events";
+
+function getEvents() {
+
+    const events =
+        localStorage.getItem(STORAGE_KEY);
+
+    return events
+        ? JSON.parse(events)
+        : [];
+
+}
+
+
+
+function saveEvent(event) {
+
+    const events =
+        getEvents();
+
+    events.push(event);
+
+    localStorage.setItem(
+
+        STORAGE_KEY,
+
+        JSON.stringify(events)
+
+    );
+
+}
+
 
 function previousMonth(){
 
@@ -322,6 +354,17 @@ window.initializeCalendar = function(){
                 );
 
 
+            const saveButton =
+             document.getElementById(
+             "confirm-modal"
+        );
+
+
+
+            saveButton.onclick =
+             handleSaveEvent;
+
+
             }else{
 
 
@@ -348,3 +391,83 @@ window.initializeCalendar = function(){
 
 
 };
+
+function handleSaveEvent() {
+
+    console.log("1 - handleSaveEvent iniciado");
+
+    const title =
+        document.getElementById("event-title");
+
+    const date =
+        document.getElementById("event-date");
+
+    const time =
+        document.getElementById("event-time");
+
+    console.log("2 - Elementos encontrados:", {
+        title,
+        date,
+        time
+    });
+
+    console.log("3 - Valores:", {
+        title: title?.value,
+        date: date?.value,
+        time: time?.value
+    });
+
+    if (
+
+        !title.value.trim() ||
+
+        !date.value ||
+
+        !time.value
+
+    ) {
+
+        console.log("4 - Validação falhou");
+
+        alert("Fill in all fields.");
+
+        return;
+
+    }
+
+    console.log("5 - Validação OK");
+
+    const event = {
+
+        id: Date.now(),
+
+        title: title.value.trim(),
+
+        date: date.value,
+
+        time: time.value
+
+    };
+
+    console.log("6 - Evento criado:", event);
+
+    saveEvent(event);
+
+    console.log("7 - Evento salvo no localStorage");
+
+    console.log(
+        "Conteúdo atual do localStorage:",
+        JSON.parse(localStorage.getItem(STORAGE_KEY))
+    );
+
+    title.value = "";
+    date.value = "";
+    time.value = "";
+
+    console.log("8 - Campos limpos");
+
+    window.closeModal();
+
+    console.log("9 - Modal fechado");
+
+}
