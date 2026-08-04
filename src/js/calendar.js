@@ -244,6 +244,8 @@ window.initializeCalendar = function(){
 
     renderCalendar();
 
+    renderUpcomingEvents();
+
 
 
     const previous =
@@ -464,10 +466,83 @@ function handleSaveEvent() {
     date.value = "";
     time.value = "";
 
-    console.log("8 - Campos limpos");
+    renderUpcomingEvents();
 
     window.closeModal();
 
-    console.log("9 - Modal fechado");
+}
+
+function renderUpcomingEvents() {
+
+    const eventsList =
+        document.getElementById("events-list");
+
+    if (!eventsList) {
+
+        return;
+
+    }
+
+    const events =
+        getEvents();
+
+    events.sort((a, b) => {
+
+        return new Date(`${a.date}T${a.time}`) -
+               new Date(`${b.date}T${b.time}`);
+
+    });
+
+    eventsList.innerHTML = "";
+
+    if (events.length === 0) {
+
+        eventsList.innerHTML = `
+
+            <div class="event-item">
+
+                <strong>
+                    No upcoming events
+                </strong>
+
+                <span>
+                    Create your first event.
+                </span>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+    events.forEach(event => {
+
+        const item =
+            document.createElement("div");
+
+        item.className =
+            "event-item";
+
+        item.innerHTML = `
+
+            <strong>
+
+                ${event.title}
+
+            </strong>
+
+            <span>
+
+                ${event.date} • ${event.time}
+
+            </span>
+
+        `;
+
+        eventsList.appendChild(item);
+
+    });
 
 }
