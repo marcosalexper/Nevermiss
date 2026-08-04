@@ -50,7 +50,6 @@ function saveEvent(event){
 }
 
 
-
 // ==============================
 // CALENDAR NAVIGATION
 // ==============================
@@ -201,7 +200,6 @@ function renderCalendar(){
         `;
 
 
-
         // indicador de evento
 
         if(hasEventOnDate(dateString)){
@@ -218,9 +216,6 @@ function renderCalendar(){
             cell.appendChild(indicator);
 
         }
-
-
-
 
         // seleção do dia
 
@@ -282,7 +277,6 @@ function renderCalendar(){
 }
 
 
-
 // verifica eventos no dia
 
 function hasEventOnDate(date){
@@ -301,7 +295,6 @@ function hasEventOnDate(date){
 }
 
 
-
 // ==============================
 // INITIALIZE CALENDAR
 // ==============================
@@ -315,12 +308,9 @@ window.initializeCalendar = function(){
     );
 
 
-
     renderCalendar();
 
     renderUpcomingEvents();
-
-
 
 
     // ==============================
@@ -358,8 +348,6 @@ window.initializeCalendar = function(){
     }
 
 
-
-
     // ==============================
     // ADD EVENT BUTTON
     // ==============================
@@ -376,8 +364,6 @@ window.initializeCalendar = function(){
         "Botão Add Event:",
         addButton
     );
-
-
 
 
     if(addButton){
@@ -439,8 +425,6 @@ window.initializeCalendar = function(){
                     `
 
                 );
-
-
 
 
                 // espera o modal criar o botão
@@ -507,11 +491,6 @@ window.initializeCalendar = function(){
 };
 
 
-
-
-
-
-
 // ==============================
 // SAVE EVENT
 // ==============================
@@ -556,8 +535,6 @@ function handleSaveEvent(){
     }
 
 
-
-
     if(
 
         !title.value.trim()
@@ -579,9 +556,6 @@ function handleSaveEvent(){
 
     }
 
-
-
-
     const event = {
 
 
@@ -602,8 +576,6 @@ function handleSaveEvent(){
 
 
     };
-
-
 
 
     saveEvent(event);
@@ -634,15 +606,7 @@ function handleSaveEvent(){
     }
 
 
-
 }
-
-
-
-
-
-
-
 
 // ==============================
 // UPCOMING EVENTS
@@ -665,8 +629,6 @@ function renderUpcomingEvents(){
         return;
 
     }
-
-
 
 
     let events =
@@ -696,17 +658,10 @@ function renderUpcomingEvents(){
     });
 
 
-
-
-
     eventsList.innerHTML = "";
 
 
-
-
-
     if(events.length === 0){
-
 
 
         eventsList.innerHTML = `
@@ -737,11 +692,6 @@ function renderUpcomingEvents(){
 
     }
 
-
-
-
-
-
     events.forEach(event=>{
 
 
@@ -754,8 +704,6 @@ function renderUpcomingEvents(){
 
         item.className =
             "event-item";
-
-
 
 
 
@@ -776,17 +724,10 @@ function renderUpcomingEvents(){
 
         `;
 
-
-
-
         eventsList.appendChild(
             item
         );
 
-
-
     });
-
-
 
 }
