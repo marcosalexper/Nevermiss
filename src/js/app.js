@@ -1,7 +1,3 @@
-// ==================================
-// Carregador de componentes
-// ==================================
-
 async function loadComponent(path) {
 
 
@@ -23,14 +19,6 @@ async function loadComponent(path) {
     return await response.text();
 
 }
-
-
-
-
-
-// ==================================
-// Layout principal
-// ==================================
 
 async function loadLayout(){
 
@@ -61,12 +49,6 @@ async function loadLayout(){
 
 
 
-
-
-// ==================================
-// Sidebar
-// ==================================
-
 async function loadSidebar(){
 
 
@@ -94,13 +76,6 @@ async function loadSidebar(){
 
 }
 
-
-
-
-
-// ==================================
-// Header
-// ==================================
 
 async function loadHeader(){
 
@@ -133,10 +108,6 @@ async function loadHeader(){
 
 
 
-// ==================================
-// Modal
-// ==================================
-
 async function loadModal(){
 
 
@@ -168,13 +139,6 @@ async function loadModal(){
 
 }
 
-
-
-
-
-// ==================================
-// Eventos da Sidebar
-// ==================================
 
 function initializeNavigation(){
 
@@ -215,12 +179,6 @@ function initializeNavigation(){
 }
 
 
-
-
-
-// ==================================
-// Inicialização da aplicação
-// ==================================
 
 async function initializeApp(){
 
