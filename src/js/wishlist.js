@@ -1,4 +1,5 @@
 let wishlistItems = [];
+let editingId = null;
 
 const WISHLIST_KEY = "nevermiss-wishlist";
 
@@ -257,34 +258,19 @@ function saveWishlist(){
     }
 
 
-
-
-
     const item = {
 
+    id: Date.now(),
 
-        id:
-            Date.now(),
+    title: title.value.trim(),
 
+    price: price.value,
 
-        title:
-            title.value.trim(),
+    category: category.value,
 
-
-        price:
-            price.value,
-
-
-        category:
-            category.value,
-
-
-        purchased:false
-
+    purchased: false
 
     };
-
-
 
 
     saveWishlistItem(item);
@@ -311,46 +297,30 @@ function saveWishlist(){
 // ==============================
 
 
-function renderWishlist(){
-
+function renderWishlist() {
 
     const list =
-        document.getElementById(
-            "wishlist-list"
-        );
+        document.getElementById("wishlist-list");
 
+    if (!list) {
 
-
-    if(!list){
-
-        console.error(
-            "wishlist-list não encontrado"
-        );
+        console.error("wishlist-list não encontrado");
 
         return;
 
     }
 
-
-
-    const items =
-        getWishlist();
-
-
+    const items = getWishlist();
 
     list.innerHTML = "";
 
-
-
-
-    if(items.length === 0){
-
+    if (items.length === 0) {
 
         list.innerHTML = `
 
             <tr>
 
-                <td colspan="3">
+                <td colspan="4">
 
                     No wishlist items.
                     Add your first item.
@@ -361,53 +331,55 @@ function renderWishlist(){
 
         `;
 
-
         return;
 
     }
 
+    items.forEach(item => {
 
+        const row = document.createElement("tr");
 
+        if (item.purchased) {
+            row.classList.add("purchased");
+        }
 
+        row.dataset.id = item.id;
 
-    items.forEach(item=>{
+    row.innerHTML = `
 
+        <td class="check-column">
 
-        const row =
-            document.createElement(
-                "tr"
-            );
+        <input
+            type="checkbox"
+            class="wishlist-check"
+            data-id="${item.id}"
+            ${item.purchased ? "checked" : ""}
+        >
 
+        </td>
 
+        <td>
 
-        row.innerHTML = `
+         ${item.title}
 
+        </td>
 
-            <td>
-                ${item.title}
-            </td>
+        <td>
 
+         $ ${item.price || "0"}
 
-            <td>
-                $ ${item.price || "0"}
-            </td>
+        </td>
 
+        <td>
 
-            <td>
-                ${item.category || "No category"}
-            </td>
+         ${item.category || "No category"}
 
+        </td>
 
-        `;
-
-
+    `;
 
         list.appendChild(row);
 
-
-
     });
-
-
 
 }
