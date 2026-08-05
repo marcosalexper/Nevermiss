@@ -1,25 +1,31 @@
 <div class="page-header">
 
-
     <h1>
         Wishlist
     </h1>
 
+    <div class="wishlist-actions">
 
-    <button id="add-wishlist-button">
+        <button id="add-wishlist-button">
 
-        Add Item
+            Add Item
 
-    </button>
+        </button>
 
+        <button
+            id="delete-item"
+            class="danger-btn"
+            style="display:none;">
+
+            Delete Item
+
+        </button>
+
+    </div>
 
 </div>
 
-
-
-
 <table class="wishlist-table">
-
 
     <thead>
 
@@ -29,24 +35,16 @@
 
             <th>Item</th>
 
-
             <th>Price</th>
-
 
             <th>Category</th>
 
-
         </tr>
-
 
     </thead>
 
-
-
     <tbody id="wishlist-list">
 
-
     </tbody>
-
 
 </table>
