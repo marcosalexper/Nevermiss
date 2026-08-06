@@ -1,168 +1,71 @@
-let wishlistItems = [];
 let editingId = null;
 
 const WISHLIST_KEY = "nevermiss-wishlist";
-
 
 
 // ==============================
 // STORAGE
 // ==============================
 
+function getWishlist() {
 
-function getWishlist(){
-
-
-    const items =
-        localStorage.getItem(
-            WISHLIST_KEY
-        );
-
+    const items = localStorage.getItem(WISHLIST_KEY);
 
     return items
         ? JSON.parse(items)
         : [];
 
-
 }
 
-
-
-function saveWishlistItem(item){
-
-
-const items = getWishlist();
-
-if(editingId){
-
-    const index =
-        items.findIndex(i => i.id === editingId);
-
-    items[index] = {
-
-        ...items[index],
-
-        title: title.value.trim(),
-
-        price: price.value,
-
-        category: category.value
-
-    };
-
-    editingId = null;
-
-}else{
-
-    items.push({
-
-        id: Date.now(),
-
-        title: title.value.trim(),
-
-        price: price.value,
-
-        category: category.value,
-
-        purchased:false
-
-    });
-
-}
-
-saveWishlist(items);
-
-renderWishlist();
-
-closeModal();
-
-
+function saveWishlist(items) {
 
     localStorage.setItem(
-
         WISHLIST_KEY,
-
         JSON.stringify(items)
-
     );
 
-
 }
-
-
 
 
 // ==============================
 // INITIALIZE WISHLIST
 // ==============================
 
+window.initializeWishlist = function () {
 
-window.initializeWishlist = function(){
-
-
-    console.log(
-        "Wishlist inicializada"
-    );
-
+    console.log("Wishlist initialized");
 
     renderWishlist();
-
-
 
     const addButton =
         document.getElementById(
             "add-wishlist-button"
         );
 
+    if (addButton) {
 
+        addButton.onclick = function () {
 
-    if(addButton){
-
-
-
-        addButton.onclick = function(){
-
-
+            editingId = null;
 
             openAddWishlistModal();
 
-
-
         };
 
-
     }
-
-    const deleteButton =
-    document.getElementById("delete-item");
-
-if(deleteButton){
-
-    deleteButton.onclick = function(){
-
-        deleteItem();
-
-    };
-
-}
-
-
 
 };
 
 
-
-
 // ==============================
-// ADD ITEM MODAL
+// ADD / EDIT MODAL
 // ==============================
 
+function openAddWishlistModal(item = null) {
 
-function openAddWishlistModal(item = null){
+    if (typeof window.openModal !== "function") {
 
-    if(typeof window.openModal !== "function"){
-
-        console.error("openModal não existe");
+        console.error("openModal not found");
 
         return;
 
@@ -172,7 +75,9 @@ function openAddWishlistModal(item = null){
 
     window.openModal(
 
-        editing ? "Edit Wishlist Item" : "Add Wishlist Item",
+        editing
+            ? "Edit Wishlist Item"
+            : "Add Wishlist Item",
 
         `
 
@@ -206,44 +111,34 @@ function openAddWishlistModal(item = null){
             value="${editing ? item.category : ""}"
         >
 
-        
-
         `
 
     );
 
-    setTimeout(()=>{
+    setTimeout(() => {
 
         const saveButton =
-            document.getElementById("confirm-modal");
+            document.getElementById(
+                "confirm-modal"
+            );
 
-        if(saveButton){
+        if (saveButton) {
 
-            saveButton.onclick = saveWishlist;
+            saveButton.onclick =
+                saveWishlistItem;
 
         }
 
-    },100);
+    }, 100);
 
 }
-
-
-
-
-        console.error(
-            "openModal não existe"
-        );
-
-
- 
 
 
 // ==============================
 // SAVE ITEM
 // ==============================
 
-
-function saveWishlist() {
+function saveWishlistItem() {
 
     const title =
         document.getElementById(
@@ -268,9 +163,10 @@ function saveWishlist() {
 
     }
 
-    if (editingId !== null) {
+    const items =
+        getWishlist();
 
-        const items = getWishlist();
+    if (editingId !== null) {
 
         const index =
             items.findIndex(
@@ -291,18 +187,13 @@ function saveWishlist() {
 
             };
 
-            localStorage.setItem(
-                STORAGE_KEY,
-                JSON.stringify(items)
-            );
-
         }
 
         editingId = null;
 
     } else {
 
-        const item = {
+        items.push({
 
             id: Date.now(),
 
@@ -314,11 +205,11 @@ function saveWishlist() {
 
             purchased: false
 
-        };
-
-        saveWishlistItem(item);
+        });
 
     }
+
+    saveWishlist(items);
 
     renderWishlist();
 
@@ -326,30 +217,29 @@ function saveWishlist() {
 
 }
 
-
-
-
-
-
 // ==============================
 // RENDER
 // ==============================
 
-
 function renderWishlist() {
 
     const list =
-        document.getElementById("wishlist-list");
+        document.getElementById(
+            "wishlist-list"
+        );
 
     if (!list) {
 
-        console.error("wishlist-list não encontrado");
+        console.error(
+            "wishlist-list not found"
+        );
 
         return;
 
     }
 
-    const items = getWishlist();
+    const items =
+        getWishlist();
 
     list.innerHTML = "";
 
@@ -376,29 +266,37 @@ function renderWishlist() {
 
     items.forEach(item => {
 
-        const row = document.createElement("tr");
+        const row =
+            document.createElement("tr");
 
         row.dataset.id = item.id;
 
         if (item.purchased) {
 
-            row.classList.add("purchased");
+            row.classList.add(
+                "purchased"
+            );
 
         }
 
-        // Clique na linha para editar
-        row.addEventListener("click", function (e) {
+        row.addEventListener(
+            "click",
+            function (e) {
 
-            // Não abre edição ao clicar no checkbox
-            if (e.target.classList.contains("wishlist-check")) {
+                if (
+                    e.target.classList.contains(
+                        "wishlist-check"
+                    )
+                ) {
 
-                return;
+                    return;
+
+                }
+
+                openEditItem(item.id);
 
             }
-
-            openEditItem(item.id);
-
-        });
+        );
 
         row.innerHTML = `
 
@@ -439,14 +337,25 @@ function renderWishlist() {
 
 }
 
-function openEditItem(id){
+// ==============================
+// EDIT ITEM
+// ==============================
 
-    const items = getWishlist();
+function openEditItem(id) {
 
-    const item = items.find(i => i.id === id);
+    const items =
+        getWishlist();
 
-    if(!item)
+    const item =
+        items.find(
+            item => item.id === id
+        );
+
+    if (!item) {
+
         return;
+
+    }
 
     editingId = id;
 
@@ -454,18 +363,34 @@ function openEditItem(id){
 
 }
 
-function deleteItem(){
 
-    if(editingId === null)
+// ==============================
+// DELETE ITEM
+// ==============================
+
+function deleteItem() {
+
+    if (editingId === null) {
+
         return;
 
-    if(!confirm("Delete this item?"))
+    }
+
+    const confirmDelete =
+        confirm(
+            "Delete this item?"
+        );
+
+    if (!confirmDelete) {
+
         return;
 
-    let items = getWishlist();
+    }
 
-    items =
-        items.filter(item => item.id !== editingId);
+    const items =
+        getWishlist().filter(
+            item => item.id !== editingId
+        );
 
     saveWishlist(items);
 
@@ -473,6 +398,6 @@ function deleteItem(){
 
     renderWishlist();
 
-    closeModal();
+    window.closeModal();
 
 }
