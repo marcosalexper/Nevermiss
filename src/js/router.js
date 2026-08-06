@@ -4,8 +4,6 @@ const routes = {
 
     calendar: "./pages/calendar.html",
 
-    wishlist: "./pages/wishlist.html",
-
     documents: "./pages/documents.html",
 
     vault: "./pages/vault.html",
