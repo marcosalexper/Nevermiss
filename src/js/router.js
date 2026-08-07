@@ -128,9 +128,6 @@ async function navigate(page) {
                 window.initializeCalendar,
 
 
-            wishlist:
-                window.initializeWishlist,
-
 
             documents:
                 window.initializeDocuments,
